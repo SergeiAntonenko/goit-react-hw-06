@@ -2,8 +2,15 @@ import css from "./Contact.module.css";
 import { RiContactsFill } from "react-icons/ri";
 import { FaPhoneVolume } from "react-icons/fa";
 import { IconContext } from "react-icons";
+import { useDispatch } from "react-redux";
+import { deleteContact } from "../../redux/contactsSlice";
 
-const Contact = ({ data: { name, number, id }, onDelete }) => {
+const Contact = ({ data: { name, number, id } }) => {
+  const dispatch = useDispatch();
+  const handleDeleteContact = (id) => {
+    dispatch(deleteContact(id));
+  };
+
   return (
     <div className={css["contacts-item"]}>
       <div>
@@ -20,7 +27,10 @@ const Contact = ({ data: { name, number, id }, onDelete }) => {
           </p>
         </IconContext.Provider>
       </div>
-      <button className={css["contacts-item-btn"]} onClick={() => onDelete(id)}>
+      <button
+        className={css["contacts-item-btn"]}
+        onClick={() => handleDeleteContact(id)}
+      >
         Delete
       </button>
     </div>
